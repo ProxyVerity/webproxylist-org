@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { OWNER_URL } from '../lib/rel';
 
 interface Props {
   title: string;
@@ -9,6 +10,7 @@ interface Props {
 const { title, description, canonicalPath } = Astro.props;
 const canonical = new URL(canonicalPath, Astro.site).href;
 const path = Astro.url.pathname;
+const isHome = path === '/';
 const year = new Date().getUTCFullYear();
 ---
 
@@ -52,8 +54,15 @@ const year = new Date().getUTCFullYear();
       <div class="wrap">
         <p>
           <strong>webproxylist.org</strong> is a directory of commercial proxy providers,
-          operated by the team behind ProxyVerity. Entries are not ranked and inclusion is not
-          an endorsement.
+          operated by the team behind {
+            /*
+              Linked on the home page only, and followable. A footer link repeated
+              on every page is the classic site-wide footprint and gets discounted
+              for being one; a single link from the page that actually accumulates
+              authority is both what was asked for and the better version of it.
+            */
+            isHome ? <a href={OWNER_URL}>ProxyVerity</a> : 'ProxyVerity'
+          }. Entries are not ranked and inclusion is not an endorsement.
         </p>
         <p>
           Provider details are compiled from each provider's own public pages or supplied by
