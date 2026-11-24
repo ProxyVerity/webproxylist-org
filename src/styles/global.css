@@ -19,6 +19,7 @@
   --measure: 36rem;
   --maxw: 72rem;
   --gutter: 20px;
+  --row-pad: 14px;
 
   --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --cond: 'IBM Plex Sans Condensed', 'IBM Plex Sans', -apple-system, sans-serif;
@@ -179,8 +180,12 @@ h3 {
 
 /* ---------- intro ---------- */
 
+/* Longhand on purpose: these elements also carry .wrap, and the padding
+   shorthand would wipe its horizontal gutter, leaving the heading flush to the
+   viewport edge while the header above it stayed indented. */
 .intro {
-  padding: 44px 0 28px;
+  padding-top: 44px;
+  padding-bottom: 28px;
   border-bottom: 1px solid var(--rule);
 }
 .intro p {
@@ -206,7 +211,11 @@ h3 {
     'sum   specs price';
   gap: 6px 28px;
   align-items: start;
-  padding: 22px 0;
+  /* The hover band and the rule run wider than the text: pad inwards, then pull
+     the same amount back out, so content stays on the page's gutter while the
+     highlight has breathing room around it. */
+  padding: 20px var(--row-pad);
+  margin: 0 calc(var(--row-pad) * -1);
   border-bottom: 1px solid var(--rule);
 }
 .row__id { grid-area: id; }
@@ -303,6 +312,9 @@ h3 {
 /* One breakpoint, and it collapses the three columns into a readable stack
    rather than letting a 9rem price column squeeze to nothing. */
 @media (max-width: 820px) {
+  :root {
+    --row-pad: 10px;
+  }
   .row {
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
@@ -310,7 +322,7 @@ h3 {
       'sum   sum'
       'specs price';
     gap: 9px 16px;
-    padding: 20px 0;
+    padding: 18px var(--row-pad);
   }
   .row__summary {
     max-width: none;
@@ -330,7 +342,7 @@ h3 {
 /* ---------- provider page ---------- */
 
 .ph {
-  padding: 40px 0 0;
+  padding-top: 40px;
 }
 .ph__top {
   display: flex;
