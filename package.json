@@ -1,0 +1,18 @@
+{
+  "name": "webproxylist-org",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "prebuild": "node scripts/check-content.mjs",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check:partners": "node scripts/check-partners.mjs",
+    "check:content": "node scripts/check-content.mjs"
+  },
+  "devDependencies": {
+    "astro": "7.4.13",
+    "@astrojs/sitemap": "3.7.6"
+  }
+}

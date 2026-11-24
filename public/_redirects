@@ -1,0 +1,26 @@
+# Pages that existed on the WordPress site until the server died, recovered from
+# the December 2024 access log. They hold inbound links (webproxylist.org shows
+# up as a referring domain in Search Console exports), and the new model has no
+# editorial free-list reviews to restore them to — so they point at the
+# directory root rather than 404.
+/geonode/*            /    301
+/hidemy-name/*        /    301
+/kproxy-com/*         /    301
+/openproxy-space/*    /    301
+/proxy-list-download/* /   301
+/proxyscrape-review/* /    301
+/review-of-proxynova/* /   301
+/review-of-spys-one/* /    301
+/sslproxies-org/*     /    301
+
+# proxylib.com is a lost domain, now parked on spam. This page is deliberately
+# not restored.
+/proxylib-com-review/* /   301
+
+# WordPress theme leftovers that served 200 and may be linked from elsewhere.
+/articles/*           /    301
+/blog/*               /    301
+/blog-3/*             /    301
+/classic/*            /    301
+/category/reviews/*   /    301
+/pages/*              /about/ 301

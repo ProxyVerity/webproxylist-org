@@ -1,0 +1,18 @@
+---
+/**
+ * The only component that renders an outbound link to a provider.
+ *
+ * Every such link gets its rel from OUTBOUND_REL, which is defined once in
+ * src/lib/rel.ts. Nothing else in this project writes a rel attribute on an
+ * external link, so the value cannot drift from page to page.
+ */
+import { OUTBOUND_REL } from '../lib/rel';
+
+interface Props {
+  href: string;
+  class?: string;
+}
+const { href, class: className } = Astro.props;
+---
+
+<a href={href} rel={OUTBOUND_REL} class={className}><slot /></a>

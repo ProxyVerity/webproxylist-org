@@ -1,0 +1,386 @@
+/*
+ * webproxylist.org — own look, deliberately not the sibling satellite's.
+ * Graphite + amber, serif display headings, flat bordered cards.
+ */
+
+:root {
+  --bg: #fbfaf8;
+  --surface: #ffffff;
+  --ink: #1b1a18;
+  --ink-soft: #595650;
+  --ink-faint: #8b877f;
+  --line: #e3dfd7;
+  --line-strong: #cdc7bb;
+  --accent: #9a5b14;
+  --accent-soft: #fdf3e5;
+  --chip: #f3efe7;
+  --radius: 4px;
+  --maxw: 1080px;
+  --gutter: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #151412;
+    --surface: #1d1b19;
+    --ink: #f0ece5;
+    --ink-soft: #b4ada2;
+    --ink-faint: #837c72;
+    --line: #2e2b27;
+    --line-strong: #413d37;
+    --accent: #e0a258;
+    --accent-soft: #272118;
+    --chip: #252219;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #151412;
+  --surface: #1d1b19;
+  --ink: #f0ece5;
+  --ink-soft: #b4ada2;
+  --ink-faint: #837c72;
+  --line: #2e2b27;
+  --line-strong: #413d37;
+  --accent: #e0a258;
+  --accent-soft: #272118;
+  --chip: #252219;
+}
+
+/* Mobile guard 1 of 3: content-box sizing was one of the three causes of the
+   horizontal overflow shipped on a sibling page. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.65 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  /* No horizontal page scroll, ever. */
+  overflow-x: hidden;
+}
+
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+a {
+  color: var(--accent);
+}
+
+h1,
+h2,
+h3 {
+  font-family: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5em;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.6rem);
+}
+h2 {
+  font-size: clamp(1.3rem, 1.05rem + 1.1vw, 1.6rem);
+  margin-top: 2em;
+}
+h3 {
+  font-size: 1.1rem;
+  margin-top: 1.6em;
+}
+
+/* ---------- header / footer ---------- */
+
+.site-head {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+.site-head__row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 18px 0;
+}
+.brand {
+  font-family: Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.brand span {
+  color: var(--accent);
+}
+.site-head__tag {
+  color: var(--ink-faint);
+  font-size: 0.875rem;
+  min-width: 0;
+}
+.site-nav {
+  margin-left: auto;
+  display: flex;
+  gap: 18px;
+  font-size: 0.9rem;
+}
+.site-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.site-nav a:hover {
+  color: var(--accent);
+}
+
+.site-foot {
+  margin-top: 64px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}
+.site-foot .wrap {
+  padding-top: 28px;
+  padding-bottom: 40px;
+}
+.site-foot p {
+  margin: 0 0 8px;
+  max-width: 62ch;
+}
+
+/* ---------- catalogue grid ---------- */
+
+.lede {
+  max-width: 64ch;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 18px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+/* Mobile guard 2 of 3: grid and flex children default to min-width:auto, which
+   refuses to shrink below their content and pushes the row wider than the
+   viewport. */
+.grid > *,
+.site-head__row > *,
+.card__head > * {
+  min-width: 0;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.card:hover {
+  border-color: var(--line-strong);
+}
+.card__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.card__logo {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border-radius: var(--radius);
+  object-fit: cover;
+  background: var(--chip);
+}
+.card__name {
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+  margin: 0;
+}
+.card__name a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.card__name a:hover {
+  color: var(--accent);
+}
+.card__domain {
+  color: var(--ink-faint);
+  font-size: 0.8rem;
+  /* Mobile guard 3 of 3: long unbroken strings — domains and URLs — are the
+     third overflow cause. */
+  overflow-wrap: anywhere;
+}
+.card__summary {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.925rem;
+}
+.card__from {
+  margin-top: auto;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+.card__from b {
+  color: var(--ink);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.chip {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.chip--kind {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* ---------- provider page ---------- */
+
+.provider-head {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 36px 0 0;
+}
+.provider-head > * {
+  min-width: 0;
+}
+.provider-head__logo {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
+  border-radius: var(--radius);
+  object-fit: cover;
+  background: var(--chip);
+}
+.provider-head h1 {
+  margin-bottom: 0.2em;
+}
+
+.cta {
+  display: inline-block;
+  margin: 4px 0 0;
+  padding: 9px 16px;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-size: 0.925rem;
+  font-weight: 600;
+}
+.cta:hover {
+  filter: brightness(1.08);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  margin: 24px 0;
+}
+table.specs {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.925rem;
+}
+table.specs th,
+table.specs td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+table.specs tr:last-child th,
+table.specs tr:last-child td {
+  border-bottom: 0;
+}
+table.specs th {
+  width: 34%;
+  color: var(--ink-soft);
+  font-weight: 500;
+  white-space: nowrap;
+}
+table.specs td {
+  overflow-wrap: anywhere;
+}
+
+.prose {
+  max-width: 68ch;
+}
+.prose p,
+.prose li {
+  overflow-wrap: anywhere;
+}
+.prose ul {
+  padding-left: 1.2em;
+}
+.prose code {
+  background: var(--chip);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.provenance {
+  margin: 0 0 20px;
+  padding: 10px 14px;
+  border-left: 3px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink-faint);
+  font-size: 0.85rem;
+}
+
+.disclosure {
+  margin: 36px 0 0;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+.disclosure p {
+  margin: 0 0 8px;
+}
+.disclosure p:last-child {
+  margin: 0;
+}
+
+main {
+  padding-bottom: 8px;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}

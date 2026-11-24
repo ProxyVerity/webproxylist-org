@@ -1,0 +1,60 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+}
+const { title, description, canonicalPath } = Astro.props;
+const canonical = new URL(canonicalPath, Astro.site).href;
+const year = new Date().getUTCFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="site-head">
+      <div class="wrap site-head__row">
+        <a class="brand" href="/">web<span>proxy</span>list</a>
+        <span class="site-head__tag">Proxy provider directory</span>
+        <nav class="site-nav">
+          <a href="/">Directory</a>
+          <a href="/about/">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-foot">
+      <div class="wrap">
+        <p>
+          <strong>webproxylist.org</strong> is a directory of commercial proxy providers,
+          operated by the team behind ProxyVerity. Entries are not ranked and inclusion is
+          not an endorsement.
+        </p>
+        <p>
+          Provider details are compiled from each provider's own public pages or supplied by
+          the provider, and change without notice — verify pricing and availability with the
+          provider before buying. See <a href="/about/">About</a> for who runs this site.
+        </p>
+        <p>&copy; {year} webproxylist.org</p>
+      </div>
+    </footer>
+  </body>
+</html>

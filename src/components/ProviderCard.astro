@@ -1,0 +1,46 @@
+---
+interface Props {
+  slug: string;
+  name: string;
+  domain: string;
+  summary: string;
+  category: string;
+  protocols: string[];
+  countries: string[];
+  pricingFrom: string;
+  pricingUnit: string;
+  logo?: string;
+}
+const {
+  slug,
+  name,
+  domain,
+  summary,
+  category,
+  protocols,
+  countries,
+  pricingFrom,
+  pricingUnit,
+  logo,
+} = Astro.props;
+---
+
+<li class="card">
+  <div class="card__head">
+    {logo && <img class="card__logo" src={logo} alt="" width="40" height="40" loading="lazy" />}
+    <div>
+      <h2 class="card__name"><a href={`/${slug}/`}>{name}</a></h2>
+      <div class="card__domain">{domain}</div>
+    </div>
+  </div>
+
+  <p class="card__summary">{summary}</p>
+
+  <ul class="chips">
+    <li class="chip chip--kind">{category}</li>
+    {protocols.map((p) => <li class="chip">{p}</li>)}
+    {countries.length > 0 && <li class="chip">{countries.length} countries</li>}
+  </ul>
+
+  <div class="card__from">From <b>{pricingFrom}</b> {pricingUnit}</div>
+</li>

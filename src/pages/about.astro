@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import { OWNER_URL } from '../lib/rel';
+---
+
+<Base
+  title="About webproxylist.org"
+  description="Who runs webproxylist.org, how entries get here, and what inclusion does and does not mean."
+  canonicalPath="/about/"
+>
+  <div class="wrap prose">
+    <h1 style="margin-top:36px">About this directory</h1>
+
+    <p>
+      webproxylist.org is a directory of commercial proxy providers. Each entry is a single
+      page covering protocols, geography, rotation, pricing and intended use, so that someone
+      shopping for a provider can compare the things that actually differ between them.
+    </p>
+
+    <h2>Who runs it</h2>
+    <p>
+      This site is operated by the team behind <a href={OWNER_URL}>ProxyVerity</a>, which
+      publishes a free proxy list and a proxy checker. We say so here rather than leaving it
+      to be discovered: the directory covers a market we also work in, and you should know
+      that before you weigh anything on it.
+    </p>
+
+    <h2>How entries get here</h2>
+    <p>
+      Some entries are compiled by us from a provider's own public documentation and pricing
+      pages. Others carry a description supplied by the provider; those pages say so directly
+      above the text, every time. Nothing on this site is a paid review, and nothing here is
+      ranked, scored or awarded a position.
+    </p>
+    <p>
+      Inclusion is not an endorsement, and absence is not a judgement — it usually just means
+      we have not written the page yet.
+    </p>
+
+    <h2>What the numbers are worth</h2>
+    <p>
+      Pricing, country coverage and feature lists come from the provider and change without
+      notice. Treat every figure here as a starting point for your own check, not as a
+      guarantee. Where a page states a date, that is when we last touched the entry.
+    </p>
+
+    <h2>Corrections</h2>
+    <p>
+      If you run one of the services listed and something is wrong or out of date, tell us and
+      it gets fixed. Corrections do not require a relationship with us of any kind.
+    </p>
+  </div>
+</Base>

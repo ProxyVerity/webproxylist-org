@@ -1,0 +1,80 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import SpecTable from '../components/SpecTable.astro';
+import ProviderLink from '../components/ProviderLink.astro';
+
+export async function getStaticPaths() {
+  const providers = await getCollection('providers');
+  return providers.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+
+const rows: Array<[string, string]> = [
+  ['Category', d.category],
+  ['Protocols', d.protocols.join(', ')],
+  ['Countries', d.countries.join(', ')],
+  ['Rotation', d.rotation],
+  ['API', d.api ? 'Yes' : 'Not documented'],
+  ['Pricing from', `${d.pricing_from} ${d.pricing_unit}`],
+  ['Website', d.domain],
+  ['Entry updated', d.updated.toISOString().slice(0, 10)],
+];
+---
+
+<Base
+  title={`${d.name} — ${d.category} | webproxylist.org`}
+  description={d.summary}
+  canonicalPath={`/${entry.id}/`}
+>
+  <div class="wrap">
+    <div class="provider-head">
+      {
+        d.logo && (
+          <img class="provider-head__logo" src={d.logo} alt="" width="72" height="72" />
+        )
+      }
+      <div>
+        <h1>{d.name}</h1>
+        <p class="lede" style="margin-top:0">{d.summary}</p>
+        <ProviderLink href={d.url} class="cta">Visit {d.domain}</ProviderLink>
+      </div>
+    </div>
+
+    <SpecTable rows={rows} />
+
+    {
+      /*
+        The provenance line appears only on exchange entries, where the body text
+        was written by the provider. A listing entry is written by us, so the same
+        line there would be false.
+      */
+    }
+    {
+      d.kind === 'exchange' && (
+        <p class="provenance">Description supplied by the vendor.</p>
+      )
+    }
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <div class="prose disclosure">
+      <p>
+        <strong>Disclosure.</strong> webproxylist.org is operated by the team behind
+        ProxyVerity. This directory does not rank providers, and inclusion is not an
+        endorsement — see <a href="/about/">About</a>.
+      </p>
+      <p>
+        Pricing and coverage come from the provider and change without notice. Verify both
+        before buying.
+      </p>
+    </div>
+
+    <p style="margin-top:28px"><a href="/">&larr; All providers</a></p>
+  </div>
+</Base>

@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProviderCard from '../components/ProviderCard.astro';
+
+const providers = (await getCollection('providers')).sort(
+  (a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name),
+);
+---
+
+<Base
+  title="webproxylist.org — proxy provider directory"
+  description="A directory of commercial proxy providers: protocols, countries, rotation, pricing and what each one is actually built for."
+  canonicalPath="/"
+>
+  <div class="wrap">
+    <h1 style="margin-top:36px">Proxy provider directory</h1>
+    <p class="lede">
+      One page per provider: which protocols they speak, which countries they cover, how
+      rotation works, what the entry price buys, and who the service is built for. Entries are
+      listed alphabetically within categories and are not ranked.
+    </p>
+
+    <ul class="grid">
+      {
+        providers.map((p) => (
+          <ProviderCard
+            slug={p.id}
+            name={p.data.name}
+            domain={p.data.domain}
+            summary={p.data.summary}
+            category={p.data.category}
+            protocols={p.data.protocols}
+            countries={p.data.countries}
+            pricingFrom={p.data.pricing_from}
+            pricingUnit={p.data.pricing_unit}
+            logo={p.data.logo}
+          />
+        ))
+      }
+    </ul>
+  </div>
+</Base>
