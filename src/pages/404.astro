@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+
+/*
+ * Cloudflare Pages falls back to the root index.html with HTTP 200 for unknown
+ * paths unless the project ships a 404.html. Without this file every mistyped
+ * or stale URL became a byte-identical duplicate of the home page, answering
+ * 200 — a soft 404, and on a directory site that is a lot of duplicates.
+ */
+---
+
+<Base
+  title="Page not found — webproxylist.org"
+  description="That page does not exist on webproxylist.org."
+  canonicalPath="/404/"
+>
+  <div class="wrap prose">
+    <h1 style="margin-top:36px">Page not found</h1>
+    <p>
+      There is nothing at this address. The directory was rebuilt in November 2026 and the
+      older review pages are gone; provider pages now live at the site root, one per provider.
+    </p>
+    <p><a href="/">Browse the provider directory &rarr;</a></p>
+  </div>
+</Base>
