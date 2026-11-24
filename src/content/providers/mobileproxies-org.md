@@ -10,6 +10,7 @@ pricing_unit: per device / month
 rotation: Airplane-mode IP change, ~5–10s, API-controlled
 api: true
 logo: /logos/mobileproxies-org.jpg
+screenshot: /shots/mobileproxies-org.jpg
 summary: Dedicated 4G/LTE and 5G mobile proxies on exclusive physical modems — one port to one device, unlimited bandwidth, REST API rotation control.
 kind: exchange
 backlink: https://mobileproxies.org/blog/proxyverity-free-proxy-list

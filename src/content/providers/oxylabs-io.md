@@ -10,6 +10,8 @@ pricing_from: "$15"
 pricing_unit: per month, Starter plan
 rotation: Not stated by the provider
 api: true
+logo: /logos/oxylabs-io.png
+screenshot: /shots/oxylabs-io.jpg
 summary: Large-scale proxy and scraping infrastructure sold in monthly plan tiers from a $15 starter through enterprise contracts, with published per-gigabyte rates for each product line.
 kind: listing
 updated: 2026-11-24

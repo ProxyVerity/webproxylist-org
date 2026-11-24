@@ -10,6 +10,8 @@ pricing_from: "$2.99"
 pricing_unit: per month, 100 datacenter proxies
 rotation: Not stated by the provider
 api: true
+logo: /logos/webshare-io.png
+screenshot: /shots/webshare-io.jpg
 summary: Self-service datacenter, static ISP and rotating residential proxies with unusually granular plan sizing, published per-unit prices and a permanent free tier.
 kind: listing
 updated: 2026-11-24

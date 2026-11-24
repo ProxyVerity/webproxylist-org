@@ -10,6 +10,8 @@ pricing_from: "$1.75"
 pricing_unit: per GB, residential
 rotation: Provider states unrestricted IP change control; mechanism not specified
 api: true
+logo: /logos/iproyal-com.png
+screenshot: /shots/iproyal-com.jpg
 summary: Multi-product proxy seller whose distinguishing feature is residential traffic that does not expire, sold usage-based with no contract.
 kind: listing
 updated: 2026-11-24

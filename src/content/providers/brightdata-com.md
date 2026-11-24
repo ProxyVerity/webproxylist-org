@@ -10,6 +10,8 @@ pricing_from: "$4.00"
 pricing_unit: per GB, pay-as-you-go with coupon
 rotation: Rotating residential with extended session control; durations not specified
 api: true
+logo: /logos/brightdata-com.png
+screenshot: /shots/brightdata-com.jpg
 summary: The largest claimed proxy network in this directory, sold with genuine no-commitment pay-as-you-go alongside monthly plans that start at several hundred dollars.
 kind: listing
 updated: 2026-11-24

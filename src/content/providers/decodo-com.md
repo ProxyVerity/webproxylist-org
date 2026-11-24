@@ -10,6 +10,8 @@ pricing_from: "$2"
 pricing_unit: per GB, residential at volume
 rotation: Per request, or sticky for up to 30 minutes
 api: true
+logo: /logos/decodo-com.png
+screenshot: /shots/decodo-com.jpg
 summary: The provider formerly known as Smartproxy — residential, ISP, datacenter and mobile pools alongside scraping APIs, and the clearest published documentation of rotation and authentication in this directory.
 kind: listing
 updated: 2026-11-24

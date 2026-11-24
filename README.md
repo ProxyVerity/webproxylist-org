@@ -56,6 +56,28 @@ vendor"* above the text. Listings do not, because their text is ours.
    `src/lib/rel.ts`. A Markdown link in a body would bypass that component and ship with no
    `rel` at all. The CTA at the top of each page is the outbound link; bodies carry prose.
 
+## Logos and screenshots
+
+Each entry carries two optional images, both served from `public/`:
+
+- `logo:` → `/logos/<slug>.png` — taken from the provider's own `apple-touch-icon` where
+  they publish one (usually 180x180), otherwise whatever icon their `<head>` declares.
+- `screenshot:` → `/shots/<slug>.jpg` — their home page at 1280x800, captured in a browser.
+
+Capturing a home page is not quite a screenshot button. Two things have to be dealt with
+first, and both were hit on the initial pass:
+
+1. **Consent banners and chat widgets.** Remove the fixed-position elements before the
+   shot rather than clicking "Accept All" — the directory should not be consenting to
+   anything on anyone's behalf, and a dismissed banner is a cookie set.
+2. **Deliberate blur.** Bright Data's home page renders most of its hero behind a CSS
+   `filter: blur(...)`, so the first capture came out soft everywhere except the headline.
+   Scrolling to trigger reveal animations did not clear it; setting `filter: none` on the
+   38 affected elements did.
+
+Re-shoot when a provider redesigns, and move the entry's `updated` date with it — the
+caption under each screenshot prints that date, so a stale image is self-reporting.
+
 ## Outbound links
 
 One constant, `OUTBOUND_REL` in `src/lib/rel.ts`, value `noopener noreferrer`. It mirrors
