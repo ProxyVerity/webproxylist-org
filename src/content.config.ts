@@ -34,6 +34,7 @@ const providers = defineCollection({
       rotation: z.string().min(1),
       api: z.boolean().default(false),
       logo: z.string().optional(),
+      screenshot: z.string().optional(),
       summary: z.string().min(40).max(300),
       kind: z.enum(['exchange', 'listing']),
       backlink: z.string().url().optional(),

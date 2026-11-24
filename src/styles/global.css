@@ -1,54 +1,56 @@
 /*
- * webproxylist.org — own look, deliberately not the sibling satellite's.
- * Graphite + amber, serif display headings, flat bordered cards.
+ * webproxylist.org
+ *
+ * Reference-work styling, not landing-page styling: hairlines instead of
+ * boxes, square corners, tabular figures, one accent used sparingly. A
+ * directory is read by someone comparing rows, so density beats air.
  */
 
 :root {
-  --bg: #fbfaf8;
-  --surface: #ffffff;
-  --ink: #1b1a18;
-  --ink-soft: #595650;
-  --ink-faint: #8b877f;
-  --line: #e3dfd7;
-  --line-strong: #cdc7bb;
-  --accent: #9a5b14;
-  --accent-soft: #fdf3e5;
-  --chip: #f3efe7;
-  --radius: 4px;
-  --maxw: 1080px;
-  --gutter: 16px;
+  --paper: #ffffff;
+  --paper-2: #f7f7f8;
+  --ink: #15161a;
+  --ink-2: #4a4e57;
+  --ink-3: #868b95;
+  --rule: #e3e5e9;
+  --rule-2: #c9ccd3;
+  --accent: #9b1b30;
+  --accent-ink: #ffffff;
+  --measure: 36rem;
+  --maxw: 72rem;
+  --gutter: 20px;
+
+  --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --cond: 'IBM Plex Sans Condensed', 'IBM Plex Sans', -apple-system, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #151412;
-    --surface: #1d1b19;
-    --ink: #f0ece5;
-    --ink-soft: #b4ada2;
-    --ink-faint: #837c72;
-    --line: #2e2b27;
-    --line-strong: #413d37;
-    --accent: #e0a258;
-    --accent-soft: #272118;
-    --chip: #252219;
+    --paper: #121317;
+    --paper-2: #181a1f;
+    --ink: #e9eaed;
+    --ink-2: #a8adb7;
+    --ink-3: #767c87;
+    --rule: #272a31;
+    --rule-2: #3a3e47;
+    --accent: #e4798d;
+    --accent-ink: #15161a;
   }
 }
 
 :root[data-theme='dark'] {
-  --bg: #151412;
-  --surface: #1d1b19;
-  --ink: #f0ece5;
-  --ink-soft: #b4ada2;
-  --ink-faint: #837c72;
-  --line: #2e2b27;
-  --line-strong: #413d37;
-  --accent: #e0a258;
-  --accent-soft: #272118;
-  --chip: #252219;
+  --paper: #121317;
+  --paper-2: #181a1f;
+  --ink: #e9eaed;
+  --ink-2: #a8adb7;
+  --ink-3: #767c87;
+  --rule: #272a31;
+  --rule-2: #3a3e47;
+  --accent: #e4798d;
+  --accent-ink: #15161a;
 }
 
-/* Mobile guard 1 of 3: content-box sizing was one of the three causes of the
-   horizontal overflow shipped on a sibling page. */
 *,
 *::before,
 *::after {
@@ -61,11 +63,12 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--paper);
   color: var(--ink);
-  font: 16px/1.65 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
-    sans-serif;
-  /* No horizontal page scroll, ever. */
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
   overflow-x: hidden;
 }
 
@@ -77,47 +80,59 @@ body {
 
 a {
   color: var(--accent);
+  text-underline-offset: 2px;
 }
 
 h1,
 h2,
 h3 {
-  font-family: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+  font-family: var(--cond);
   font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  margin: 0 0 0.5em;
+  line-height: 1.12;
+  letter-spacing: -0.005em;
+  margin: 0 0 0.45em;
 }
-
 h1 {
-  font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.6rem);
+  font-size: clamp(2rem, 1.3rem + 3vw, 3.1rem);
+  font-weight: 700;
 }
 h2 {
-  font-size: clamp(1.3rem, 1.05rem + 1.1vw, 1.6rem);
-  margin-top: 2em;
+  font-size: clamp(1.35rem, 1.1rem + 1.1vw, 1.7rem);
+  margin-top: 2.2em;
 }
 h3 {
-  font-size: 1.1rem;
-  margin-top: 1.6em;
+  font-size: 1.08rem;
+  margin-top: 1.9em;
 }
 
-/* ---------- header / footer ---------- */
+/* Small uppercase label, the workhorse of reference layouts. */
+.label {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ---------- header ---------- */
 
 .site-head {
-  border-bottom: 1px solid var(--line);
-  background: var(--surface);
+  border-bottom: 1px solid var(--ink);
 }
 .site-head__row {
   display: flex;
-  align-items: baseline;
-  gap: 12px;
-  flex-wrap: wrap;
-  padding: 18px 0;
+  align-items: center;
+  gap: 16px;
+  min-height: 58px;
+}
+.site-head__row > * {
+  min-width: 0;
 }
 .brand {
-  font-family: Georgia, serif;
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-family: var(--cond);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
   color: var(--ink);
   text-decoration: none;
   white-space: nowrap;
@@ -126,287 +141,385 @@ h3 {
   color: var(--accent);
 }
 .site-head__tag {
-  color: var(--ink-faint);
-  font-size: 0.875rem;
-  min-width: 0;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-left: 1px solid var(--rule-2);
+  padding-left: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .site-nav {
   margin-left: auto;
   display: flex;
   gap: 18px;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
 }
 .site-nav a {
-  color: var(--ink-soft);
+  color: var(--ink-2);
   text-decoration: none;
 }
+.site-nav a[aria-current='page'],
 .site-nav a:hover {
-  color: var(--accent);
+  color: var(--ink);
+  text-decoration: underline;
 }
 
-.site-foot {
-  margin-top: 64px;
-  border-top: 1px solid var(--line);
-  background: var(--surface);
-  color: var(--ink-soft);
-  font-size: 0.875rem;
-}
-.site-foot .wrap {
-  padding-top: 28px;
-  padding-bottom: 40px;
-}
-.site-foot p {
-  margin: 0 0 8px;
-  max-width: 62ch;
+/* The tagline is the first thing to go when the row gets tight: it is
+   decoration, the nav is not. */
+@media (max-width: 560px) {
+  .site-head__tag {
+    display: none;
+  }
 }
 
-/* ---------- catalogue grid ---------- */
+/* ---------- intro ---------- */
 
-.lede {
-  max-width: 64ch;
-  color: var(--ink-soft);
-  font-size: 1.05rem;
+.intro {
+  padding: 44px 0 28px;
+  border-bottom: 1px solid var(--rule);
+}
+.intro p {
+  max-width: var(--measure);
+  color: var(--ink-2);
+  margin: 0;
+  font-size: 1.0625rem;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: 18px;
-  margin: 28px 0 0;
-  padding: 0;
+/* ---------- the directory list ---------- */
+
+.list {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
-/* Mobile guard 2 of 3: grid and flex children default to min-width:auto, which
-   refuses to shrink below their content and pushes the row wider than the
-   viewport. */
-.grid > *,
-.site-head__row > *,
-.card__head > * {
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15rem 9rem;
+  grid-template-areas:
+    'id    specs price'
+    'sum   specs price';
+  gap: 6px 28px;
+  align-items: start;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.row__id { grid-area: id; }
+.row__summary { grid-area: sum; }
+.row__specs { grid-area: specs; }
+.row__price { grid-area: price; }
+.row > * {
   min-width: 0;
 }
+.row:hover {
+  background: var(--paper-2);
+}
 
-.card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 18px;
+.row__id {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 13px;
+  align-items: flex-start;
 }
-.card:hover {
-  border-color: var(--line-strong);
-}
-.card__head {
+.row__mark {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  object-fit: contain;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  font-family: var(--cond);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ink-2);
 }
-.card__logo {
-  width: 40px;
-  height: 40px;
-  flex: 0 0 40px;
-  border-radius: var(--radius);
-  object-fit: cover;
-  background: var(--chip);
-}
-.card__name {
-  font-family: Georgia, serif;
-  font-size: 1.05rem;
+.row__name {
   margin: 0;
+  font-family: var(--cond);
+  font-size: 1.22rem;
+  font-weight: 600;
+  line-height: 1.2;
 }
-.card__name a {
+.row__name a {
   color: var(--ink);
   text-decoration: none;
 }
-.card__name a:hover {
+.row__name a:hover {
   color: var(--accent);
+  text-decoration: underline;
 }
-.card__domain {
-  color: var(--ink-faint);
-  font-size: 0.8rem;
-  /* Mobile guard 3 of 3: long unbroken strings — domains and URLs — are the
-     third overflow cause. */
+.row__domain {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--ink-3);
   overflow-wrap: anywhere;
 }
-.card__summary {
-  margin: 0;
-  color: var(--ink-soft);
-  font-size: 0.925rem;
-}
-.card__from {
-  margin-top: auto;
-  font-size: 0.875rem;
-  color: var(--ink-soft);
-}
-.card__from b {
-  color: var(--ink);
+.row__summary {
+  margin: 2px 0 0;
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  max-width: 58ch;
 }
 
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.row__specs {
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+  display: grid;
+  gap: 3px;
 }
-.chip {
+.row__specs b {
+  font-weight: 500;
+  color: var(--ink);
+}
+.row__specs .na {
+  color: var(--ink-3);
+  font-style: italic;
+}
+
+.row__price {
+  text-align: right;
+}
+.row__price .amount {
+  font-family: var(--cond);
+  font-size: 1.35rem;
+  font-weight: 700;
+  display: block;
+  line-height: 1.1;
+}
+.row__price .unit {
   font-size: 0.75rem;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--chip);
-  color: var(--ink-soft);
-  /* Not nowrap: a long value (a provider's coverage statement, say) would then
-     push straight through the card's right edge instead of wrapping. */
-  white-space: normal;
-  max-width: 100%;
-  overflow-wrap: anywhere;
+  color: var(--ink-3);
+  display: block;
+  margin-top: 2px;
 }
-.chip--kind {
-  background: var(--accent-soft);
-  color: var(--accent);
+
+/* One breakpoint, and it collapses the three columns into a readable stack
+   rather than letting a 9rem price column squeeze to nothing. */
+@media (max-width: 820px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'id    id'
+      'sum   sum'
+      'specs price';
+    gap: 9px 16px;
+    padding: 20px 0;
+  }
+  .row__summary {
+    max-width: none;
+  }
+  .row__specs {
+    font-size: 0.78125rem;
+  }
+  .row__price {
+    align-self: end;
+    white-space: nowrap;
+  }
+  .row__price .amount {
+    font-size: 1.2rem;
+  }
 }
 
 /* ---------- provider page ---------- */
 
-.provider-head {
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  padding: 36px 0 0;
+.ph {
+  padding: 40px 0 0;
 }
-.provider-head > * {
+.ph__top {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.ph__top > * {
   min-width: 0;
 }
-.provider-head__logo {
-  width: 72px;
-  height: 72px;
-  flex: 0 0 72px;
-  border-radius: var(--radius);
-  object-fit: cover;
-  background: var(--chip);
+.ph__mark {
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  object-fit: contain;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--cond);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--ink-2);
 }
-.provider-head h1 {
-  margin-bottom: 0.2em;
+.ph h1 {
+  margin: 0;
+}
+.ph__domain {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+.ph__summary {
+  max-width: var(--measure);
+  color: var(--ink-2);
+  font-size: 1.0625rem;
+  margin: 0 0 20px;
 }
 
 .cta {
   display: inline-block;
-  margin: 4px 0 0;
-  padding: 9px 16px;
-  background: var(--accent);
-  color: var(--bg);
-  border-radius: var(--radius);
+  padding: 10px 18px;
+  background: var(--ink);
+  color: var(--paper);
   text-decoration: none;
-  font-size: 0.925rem;
-  font-weight: 600;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border: 1px solid var(--ink);
 }
 .cta:hover {
-  filter: brightness(1.08);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
 }
 
-.table-wrap {
-  overflow-x: auto;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  margin: 24px 0;
+/* Specs as a hairline definition grid, not a boxed table. */
+.specs {
+  margin: 30px 0 0;
+  border-top: 1px solid var(--ink);
 }
-table.specs {
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 0.925rem;
+.specs__row {
+  display: grid;
+  grid-template-columns: 13rem 1fr;
+  gap: 4px 24px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.9375rem;
 }
-table.specs th,
-table.specs td {
-  text-align: left;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
+.specs__row > * {
+  min-width: 0;
 }
-table.specs tr:last-child th,
-table.specs tr:last-child td {
-  border-bottom: 0;
+.specs__row dt {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding-top: 3px;
 }
-table.specs th {
-  width: 34%;
-  color: var(--ink-soft);
-  font-weight: 500;
-  white-space: nowrap;
-}
-table.specs td {
+.specs__row dd {
+  margin: 0;
   overflow-wrap: anywhere;
+}
+.specs__row dd.na {
+  color: var(--ink-3);
+  font-style: italic;
+}
+@media (max-width: 640px) {
+  .specs__row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+.shot {
+  margin: 34px 0 0;
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+}
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.shot figcaption {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  padding: 9px 12px;
+  border-top: 1px solid var(--rule);
+}
+
+.provenance {
+  margin: 30px 0 0;
+  padding: 9px 0 9px 14px;
+  border-left: 2px solid var(--accent);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-3);
 }
 
 .prose {
-  max-width: 68ch;
+  max-width: var(--measure);
 }
 .prose p,
 .prose li {
   overflow-wrap: anywhere;
 }
 .prose ul {
-  padding-left: 1.2em;
+  padding-left: 1.1em;
+}
+.prose li {
+  margin-bottom: 0.3em;
+}
+.prose strong {
+  font-weight: 600;
 }
 .prose code {
-  background: var(--chip);
-  padding: 1px 5px;
-  border-radius: 3px;
-  font-size: 0.9em;
-}
-
-.provenance {
-  margin: 0 0 20px;
-  padding: 10px 14px;
-  border-left: 3px solid var(--line-strong);
-  background: var(--surface);
-  color: var(--ink-faint);
-  font-size: 0.85rem;
+  font-family: var(--mono);
+  font-size: 0.875em;
+  background: var(--paper-2);
+  padding: 1px 4px;
 }
 
 .disclosure {
-  margin: 36px 0 0;
-  padding: 16px 18px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-  color: var(--ink-soft);
-  font-size: 0.9rem;
+  max-width: var(--measure);
+  margin: 40px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-3);
+  font-size: 0.875rem;
 }
 .disclosure p {
-  margin: 0 0 8px;
+  margin: 0 0 7px;
 }
 .disclosure p:last-child {
   margin: 0;
 }
 
+.backlink {
+  margin: 34px 0 0;
+  font-size: 0.9375rem;
+}
+
+/* ---------- footer ---------- */
+
+.site-foot {
+  margin-top: 70px;
+  border-top: 1px solid var(--ink);
+  color: var(--ink-3);
+  font-size: 0.8125rem;
+}
+.site-foot .wrap {
+  padding-top: 24px;
+  padding-bottom: 44px;
+}
+.site-foot p {
+  margin: 0 0 9px;
+  max-width: 62ch;
+}
+
 main {
-  padding-bottom: 8px;
+  padding-bottom: 10px;
 }
 img {
   max-width: 100%;
   height: auto;
-}
-
-/* Monogram stand-in where a provider has no logo on file, so the grid reads as
-   one set of cards rather than one with a picture and five without. */
-.card__logo--mono {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Georgia, serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--ink-soft);
-  background: var(--chip);
-  border: 1px solid var(--line);
-}
-
-/* An unpublished fact, marked as absent rather than dressed up as a value. */
-.chip--unknown {
-  background: transparent;
-  border: 1px dashed var(--line-strong);
-  color: var(--ink-faint);
-  font-style: italic;
 }

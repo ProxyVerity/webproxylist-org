@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import ProviderCard from '../components/ProviderCard.astro';
+import ProviderRow from '../components/ProviderRow.astro';
 
 const providers = (await getCollection('providers')).sort(
   (a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name),
@@ -10,21 +10,23 @@ const providers = (await getCollection('providers')).sort(
 
 <Base
   title="webproxylist.org — proxy provider directory"
-  description="A directory of commercial proxy providers: protocols, countries, rotation, pricing and what each one is actually built for."
+  description="A directory of commercial proxy providers: protocols, coverage, rotation, pricing and what each service is built for."
   canonicalPath="/"
 >
-  <div class="wrap">
-    <h1 style="margin-top:36px">Proxy provider directory</h1>
-    <p class="lede">
-      One page per provider: which protocols they speak, which countries they cover, how
-      rotation works, what the entry price buys, and who the service is built for. Entries are
-      listed alphabetically within categories and are not ranked.
+  <div class="wrap intro">
+    <h1>Proxy provider directory</h1>
+    <p>
+      One page per provider: which protocols they speak, how much of the world they cover, how
+      rotation works, what the entry price buys, and where their own published figures
+      contradict each other. Entries are not ranked.
     </p>
+  </div>
 
-    <ul class="grid">
+  <div class="wrap">
+    <ul class="list">
       {
         providers.map((p) => (
-          <ProviderCard
+          <ProviderRow
             slug={p.id}
             name={p.data.name}
             domain={p.data.domain}

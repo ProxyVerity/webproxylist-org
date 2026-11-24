@@ -1,8 +1,9 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import SpecTable from '../components/SpecTable.astro';
 import ProviderLink from '../components/ProviderLink.astro';
+
+const UNKNOWN = 'Not stated by the provider';
 
 export async function getStaticPaths() {
   const providers = await getCollection('providers');
@@ -13,16 +14,18 @@ const { entry } = Astro.props;
 const d = entry.data;
 const { Content } = await render(entry);
 
-const rows: Array<[string, string]> = [
-  ['Category', d.category],
-  ['Protocols', d.protocols.join(', ')],
-  ['Coverage', d.locations_claimed ?? `${d.countries.length} countries`],
-  ['Targeting', d.countries.join(', ')],
-  ['Rotation', d.rotation],
-  ['API', d.api ? 'Yes' : 'Not documented'],
-  ['Pricing from', `${d.pricing_from} ${d.pricing_unit}`],
-  ['Website', d.domain],
-  ['Entry updated', d.updated.toISOString().slice(0, 10)],
+const monogram = d.name.replace(/[^A-Za-z0-9]/g, '').charAt(0).toUpperCase();
+const protocolsKnown = !(d.protocols.length === 1 && d.protocols[0] === UNKNOWN);
+
+const specs: Array<[string, string, boolean]> = [
+  ['Category', d.category, false],
+  ['Protocols', protocolsKnown ? d.protocols.join(', ') : UNKNOWN, !protocolsKnown],
+  ['Coverage', d.locations_claimed ?? `${d.countries.length} countries`, false],
+  ['Targeting', d.countries.join(', '), false],
+  ['Rotation', d.rotation, /not stated/i.test(d.rotation)],
+  ['API', d.api ? 'Yes' : 'Not documented', !d.api],
+  ['Pricing from', `${d.pricing_from} ${d.pricing_unit}`, false],
+  ['Entry updated', d.updated.toISOString().slice(0, 10), false],
 ];
 ---
 
@@ -31,51 +34,69 @@ const rows: Array<[string, string]> = [
   description={d.summary}
   canonicalPath={`/${entry.id}/`}
 >
-  <div class="wrap">
-    <div class="provider-head">
+  <div class="wrap ph">
+    <div class="ph__top">
       {
-        d.logo && (
-          <img class="provider-head__logo" src={d.logo} alt="" width="72" height="72" />
+        d.logo ? (
+          <img class="ph__mark" src={d.logo} alt="" width="52" height="52" />
+        ) : (
+          <span class="ph__mark" aria-hidden="true">{monogram}</span>
         )
       }
       <div>
         <h1>{d.name}</h1>
-        <p class="lede" style="margin-top:0">{d.summary}</p>
-        <ProviderLink href={d.url} class="cta">Visit {d.domain}</ProviderLink>
+        <div class="ph__domain">{d.domain}</div>
       </div>
     </div>
 
-    <SpecTable rows={rows} />
+    <p class="ph__summary">{d.summary}</p>
+    <ProviderLink href={d.url} class="cta">Visit {d.domain}</ProviderLink>
+
+    <dl class="specs">
+      {
+        specs.map(([term, value, absent]) => (
+          <div class="specs__row">
+            <dt>{term}</dt>
+            <dd class={absent ? 'na' : undefined}>{value}</dd>
+          </div>
+        ))
+      }
+    </dl>
 
     {
-      /*
-        The provenance line appears only on exchange entries, where the body text
-        was written by the provider. A listing entry is written by us, so the same
-        line there would be false.
-      */
-    }
-    {
-      d.kind === 'exchange' && (
-        <p class="provenance">Description supplied by the vendor.</p>
+      d.screenshot && (
+        <figure class="shot">
+          <img
+            src={d.screenshot}
+            alt={`Home page of ${d.domain}`}
+            loading="lazy"
+            width="1280"
+            height="800"
+          />
+          <figcaption>{d.domain} home page, captured {d.updated.toISOString().slice(0, 10)}</figcaption>
+        </figure>
       )
     }
+
+    {
+      /* Only an exchange entry carries vendor-written text, so only an exchange
+         entry gets the line saying so. */
+    }
+    {d.kind === 'exchange' && <p class="provenance">Description supplied by the vendor</p>}
 
     <div class="prose">
       <Content />
     </div>
 
-    <div class="prose disclosure">
+    <div class="disclosure">
       <p>
         <strong>Disclosure.</strong> webproxylist.org is operated by the team behind
         ProxyVerity. This directory does not rank providers, and inclusion is not an
         endorsement — see <a href="/about/">About</a>.
       </p>
-      <p>
-        Pricing and coverage come from the provider and change without notice. Verify both
-        before buying.
-      </p>
+      <p>Pricing and coverage come from the provider and change without notice.</p>
     </div>
 
-    <p style="margin-top:28px"><a href="/">&larr; All providers</a></p>
+    <p class="backlink"><a href="/">&larr; All providers</a></p>
   </div>
 </Base>

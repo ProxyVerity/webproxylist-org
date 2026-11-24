@@ -8,6 +8,7 @@ interface Props {
 }
 const { title, description, canonicalPath } = Astro.props;
 const canonical = new URL(canonicalPath, Astro.site).href;
+const path = Astro.url.pathname;
 const year = new Date().getUTCFullYear();
 ---
 
@@ -24,15 +25,21 @@ const year = new Date().getUTCFullYear();
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    />
   </head>
   <body>
     <header class="site-head">
       <div class="wrap site-head__row">
-        <a class="brand" href="/">web<span>proxy</span>list</a>
+        <a class="brand" href="/">webproxy<span>list</span></a>
         <span class="site-head__tag">Proxy provider directory</span>
         <nav class="site-nav">
-          <a href="/">Directory</a>
-          <a href="/about/">About</a>
+          <a href="/" aria-current={path === '/' ? 'page' : undefined}>Directory</a>
+          <a href="/about/" aria-current={path === '/about/' ? 'page' : undefined}>About</a>
         </nav>
       </div>
     </header>
@@ -45,8 +52,8 @@ const year = new Date().getUTCFullYear();
       <div class="wrap">
         <p>
           <strong>webproxylist.org</strong> is a directory of commercial proxy providers,
-          operated by the team behind ProxyVerity. Entries are not ranked and inclusion is
-          not an endorsement.
+          operated by the team behind ProxyVerity. Entries are not ranked and inclusion is not
+          an endorsement.
         </p>
         <p>
           Provider details are compiled from each provider's own public pages or supplied by
