@@ -12,6 +12,8 @@ interface Props {
   locationsClaimed?: string;
   logo?: string;
 }
+const UNKNOWN = 'Not stated by the provider';
+
 const {
   slug,
   name,
@@ -25,11 +27,22 @@ const {
   locationsClaimed,
   logo,
 } = Astro.props;
+
+// A provider that does not publish its protocols should not get a chip that
+// looks like a protocol name sitting next to HTTP and SOCKS5.
+const protocolsKnown = !(protocols.length === 1 && protocols[0] === UNKNOWN);
+const monogram = name.replace(/[^A-Za-z0-9]/g, '').charAt(0).toUpperCase();
 ---
 
 <li class="card">
   <div class="card__head">
-    {logo && <img class="card__logo" src={logo} alt="" width="40" height="40" loading="lazy" />}
+    {
+      logo ? (
+        <img class="card__logo" src={logo} alt="" width="40" height="40" loading="lazy" />
+      ) : (
+        <span class="card__logo card__logo--mono" aria-hidden="true">{monogram}</span>
+      )
+    }
     <div>
       <h2 class="card__name"><a href={`/${slug}/`}>{name}</a></h2>
       <div class="card__domain">{domain}</div>
@@ -40,7 +53,13 @@ const {
 
   <ul class="chips">
     <li class="chip chip--kind">{category}</li>
-    {protocols.map((p) => <li class="chip">{p}</li>)}
+    {
+      protocolsKnown ? (
+        protocols.map((p) => <li class="chip">{p}</li>)
+      ) : (
+        <li class="chip chip--unknown">protocols not stated</li>
+      )
+    }
     {locationsClaimed ? (
       <li class="chip">{locationsClaimed}</li>
     ) : (

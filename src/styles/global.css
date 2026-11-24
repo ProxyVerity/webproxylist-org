@@ -257,7 +257,11 @@ h3 {
   border-radius: 999px;
   background: var(--chip);
   color: var(--ink-soft);
-  white-space: nowrap;
+  /* Not nowrap: a long value (a provider's coverage statement, say) would then
+     push straight through the card's right edge instead of wrapping. */
+  white-space: normal;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 .chip--kind {
   background: var(--accent-soft);
@@ -383,4 +387,26 @@ main {
 img {
   max-width: 100%;
   height: auto;
+}
+
+/* Monogram stand-in where a provider has no logo on file, so the grid reads as
+   one set of cards rather than one with a picture and five without. */
+.card__logo--mono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  background: var(--chip);
+  border: 1px solid var(--line);
+}
+
+/* An unpublished fact, marked as absent rather than dressed up as a value. */
+.chip--unknown {
+  background: transparent;
+  border: 1px dashed var(--line-strong);
+  color: var(--ink-faint);
+  font-style: italic;
 }

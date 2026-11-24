@@ -4,7 +4,7 @@ domain: iproyal.com
 url: https://iproyal.com/
 category: Residential, ISP and datacenter proxies
 countries: [United States, United Kingdom, Germany, Canada, Netherlands, India, Brazil]
-locations_claimed: 60+ datacenter locations; per-country residential counts published
+locations_claimed: 60+ datacenter locations (provider's figure)
 protocols: [Not stated by the provider]
 pricing_from: "$1.75"
 pricing_unit: per GB, residential
