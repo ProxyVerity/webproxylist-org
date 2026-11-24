@@ -136,3 +136,11 @@ of most of this market.
 It suits less well anyone needing pay-as-you-go flexibility alongside a monthly plan, since
 the two cannot be combined, or anyone whose budget depends on the headline $2 rate without
 committing to a thousand gigabytes.
+
+## Compare with
+
+- [Oxylabs](/oxylabs-io/) — comparable breadth and scale, but protocols, authentication
+  and rotation are all absent from its public pages.
+- [IPRoyal](/iproyal-com/) — residential traffic that does not expire, which Decodo's
+  monthly allowances do.
+- [Webshare](/webshare-io/) — a permanent free tier rather than a 100 MB trial.

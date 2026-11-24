@@ -127,3 +127,12 @@ contract make it inexpensive to trial, though no free tier is advertised.
 It is a weaker fit if you need documented protocol support or guaranteed session behaviour
 before committing, since neither is published. Resolve those two points first; everything
 else about the offer is unusually transparent.
+
+## Compare with
+
+- [Decodo](/decodo-com/) — states protocols, authentication and rotation, all three of
+  which IPRoyal leaves unpublished.
+- [Webshare](/webshare-io/) — a permanent free tier instead of a low entry rate, and
+  per-proxy rather than per-gigabyte pricing on two of its products.
+- [Oxylabs](/oxylabs-io/) — similar product breadth at a higher price, with account
+  managers in place of self-service limits.

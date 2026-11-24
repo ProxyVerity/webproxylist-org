@@ -126,3 +126,12 @@ confirm those points directly, because the public pages do not cover them.
 Rotation behaviour in particular is not described on the pages reviewed — neither per-request
 rotation nor sticky session durations are stated — and for residential work that is usually
 the first thing you need to know.
+
+## Compare with
+
+- [Decodo](/decodo-com/) — publishes rotation ceilings and both authentication methods,
+  which Webshare does not.
+- [IPRoyal](/iproyal-com/) — cheaper residential entry rate, and traffic that does not
+  expire at the end of the month.
+- [Bright Data](/brightdata-com/) — the other end of the market: far wider coverage, entry
+  plans two orders of magnitude higher.

@@ -8,12 +8,16 @@
  * for comfort; it is the measured body length of the vendor copy supplied by
  * mobileproxies.org, so "no shorter than the partner" is enforced literally.
  *
- * Rule 2 — no links in entry bodies. Every outbound link on this site is
- * rendered by src/components/ProviderLink.astro, which takes its rel from the
- * single constant in src/lib/rel.ts. A Markdown link inside an entry body
- * would bypass that component and ship with no rel at all, quietly breaking
- * the one invariant this project has about outbound links. The CTA at the top
- * of each page is the outbound link; bodies carry prose.
+ * Rule 2 — no EXTERNAL links in entry bodies. Every outbound link on this
+ * site is rendered by src/components/ProviderLink.astro, which picks its rel
+ * from src/lib/rel.ts according to the entry's kind. A Markdown link to
+ * another site inside a body would bypass that component and ship with no rel
+ * at all, quietly breaking the one invariant this project has about outbound
+ * links. The CTA at the top of each page is the outbound link.
+ *
+ * Internal links — anything starting with "/" — are allowed and encouraged:
+ * they are how one entry points at another, they stay on this origin, and rel
+ * does not apply to them.
  */
 
 import { readdir, readFile } from 'node:fs/promises';
@@ -23,7 +27,8 @@ const DIR = 'src/content/providers';
 const MIN_WORDS = 754;
 
 const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---\r?\n/;
-const MD_LINK = /\[[^\]]*\]\((?!#)[^)]+\)/g;
+// A Markdown link whose target is not internal (does not begin with "/").
+const MD_LINK = /\[[^\]]*\]\((?![/#])[^)]+\)/g;
 const HTML_LINK = /<a\s[^>]*href=/gi;
 const BARE_URL = /(?<![("[\w])https?:\/\/\S+/g;
 
@@ -66,8 +71,9 @@ for (const file of files) {
   ];
   if (links.length > 0) {
     problems.push(
-      `${file}: ${links.length} link(s) in the body — outbound links must go through ` +
-        `ProviderLink.astro so they carry the single-source rel. First: ${links[0].slice(0, 60)}`,
+      `${file}: ${links.length} external link(s) in the body — outbound links must go ` +
+        `through ProviderLink.astro so they carry the right rel. Internal links starting ` +
+        `with "/" are fine. First: ${links[0].slice(0, 60)}`,
     );
   }
 

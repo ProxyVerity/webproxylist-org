@@ -50,7 +50,7 @@ const specs: Array<[string, string, boolean]> = [
     </div>
 
     <p class="ph__summary">{d.summary}</p>
-    <ProviderLink href={d.url} class="cta">Visit {d.domain}</ProviderLink>
+    <ProviderLink href={d.url} kind={d.kind} class="cta">Visit {d.domain}</ProviderLink>
 
     <dl class="specs">
       {
@@ -73,16 +73,10 @@ const specs: Array<[string, string, boolean]> = [
             width="1280"
             height="800"
           />
-          <figcaption>{d.domain} home page, captured {d.updated.toISOString().slice(0, 10)}</figcaption>
+          <figcaption>{d.domain} home page</figcaption>
         </figure>
       )
     }
-
-    {
-      /* Only an exchange entry carries vendor-written text, so only an exchange
-         entry gets the line saying so. */
-    }
-    {d.kind === 'exchange' && <p class="provenance">Description supplied by the vendor</p>}
 
     <div class="prose">
       <Content />

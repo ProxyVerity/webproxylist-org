@@ -139,3 +139,12 @@ rate. The four-level product ladder means you are unlikely to outgrow it.
 For small teams, the pay-as-you-go route is viable and the deposit match softens evaluation
 costs — but at $8 per GB list, a cheaper provider will usually win on economics alone unless
 you specifically need the coverage, the ASN targeting or the unblocking products.
+
+## Compare with
+
+- [Oxylabs](/oxylabs-io/) — the nearest competitor on scale and product range, with a $15
+  starter tier against this $499.
+- [Decodo](/decodo-com/) — a fraction of the coverage, but rotation and authentication are
+  documented rather than implied.
+- [Webshare](/webshare-io/) — the opposite proposition: small, self-service, and free to
+  start.

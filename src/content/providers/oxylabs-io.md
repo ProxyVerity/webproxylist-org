@@ -136,3 +136,12 @@ initial trial cheap, and the welcome credit makes it nearly free.
 It fits less well a team that needs to settle protocol, authentication and session behaviour
 from public documentation before talking to anyone. Those answers require contact here, and
 if that is a blocker, a provider that publishes them will move faster.
+
+## Compare with
+
+- [Decodo](/decodo-com/) — publishes the protocol, authentication and rotation detail that
+  Oxylabs leaves to a sales conversation.
+- [Bright Data](/brightdata-com/) — the closest competitor on coverage and product range,
+  with a far higher monthly entry point.
+- [Webshare](/webshare-io/) — much narrower, but everything is self-service and priced in
+  public.

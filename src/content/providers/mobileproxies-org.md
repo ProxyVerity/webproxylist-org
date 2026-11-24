@@ -167,3 +167,10 @@ infrastructure. With exclusive physical modems, 95+ trust-score IP reputation, R
 control, and unlimited bandwidth, it's designed for organizations that need dependable mobile
 proxies for scraping, automation, verification, and account workflows—without the risks of
 shared or virtualized proxy pools.
+
+## Compare with
+
+- [Bright Data](/brightdata-com/) — mobile among four proxy types, priced per gigabyte
+  rather than per device.
+- [IPRoyal](/iproyal-com/) — a mobile line alongside residential, ISP and datacenter.
+- [Decodo](/decodo-com/) — mobile sold by the gigabyte, with published rotation ceilings.
