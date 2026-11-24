@@ -34,6 +34,7 @@ const providers = (await getCollection('providers')).sort(
             countries={p.data.countries}
             pricingFrom={p.data.pricing_from}
             pricingUnit={p.data.pricing_unit}
+            locationsClaimed={p.data.locations_claimed}
             logo={p.data.logo}
           />
         ))

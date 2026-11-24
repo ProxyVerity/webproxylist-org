@@ -23,6 +23,11 @@ const providers = defineCollection({
       url: z.string().url(),
       category: z.string().min(1),
       countries: z.array(z.string().min(2)).min(1),
+      // Large networks advertise a location count, not a list. Printing
+      // "4 countries" from a representative sample would understate them by two
+      // orders of magnitude, so the provider's own figure goes here verbatim
+      // and the card prefers it.
+      locations_claimed: z.string().optional(),
       protocols: z.array(z.string().min(3)).min(1),
       pricing_from: z.string().min(1),
       pricing_unit: z.string().min(1),

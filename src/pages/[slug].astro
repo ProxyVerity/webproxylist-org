@@ -16,7 +16,8 @@ const { Content } = await render(entry);
 const rows: Array<[string, string]> = [
   ['Category', d.category],
   ['Protocols', d.protocols.join(', ')],
-  ['Countries', d.countries.join(', ')],
+  ['Coverage', d.locations_claimed ?? `${d.countries.length} countries`],
+  ['Targeting', d.countries.join(', ')],
   ['Rotation', d.rotation],
   ['API', d.api ? 'Yes' : 'Not documented'],
   ['Pricing from', `${d.pricing_from} ${d.pricing_unit}`],

@@ -9,6 +9,7 @@ interface Props {
   countries: string[];
   pricingFrom: string;
   pricingUnit: string;
+  locationsClaimed?: string;
   logo?: string;
 }
 const {
@@ -21,6 +22,7 @@ const {
   countries,
   pricingFrom,
   pricingUnit,
+  locationsClaimed,
   logo,
 } = Astro.props;
 ---
@@ -39,7 +41,11 @@ const {
   <ul class="chips">
     <li class="chip chip--kind">{category}</li>
     {protocols.map((p) => <li class="chip">{p}</li>)}
-    {countries.length > 0 && <li class="chip">{countries.length} countries</li>}
+    {locationsClaimed ? (
+      <li class="chip">{locationsClaimed}</li>
+    ) : (
+      countries.length > 0 && <li class="chip">{countries.length} countries</li>
+    )}
   </ul>
 
   <div class="card__from">From <b>{pricingFrom}</b> {pricingUnit}</div>
